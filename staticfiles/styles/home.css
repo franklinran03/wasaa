@@ -1,0 +1,6 @@
+.photo-post {
+    width: 45px;   /* Ancho de 15px */
+    height: 45px;  /* Alto de 15px */
+    border-radius: 15%;  /* Para hacer la imagen redonda */
+    object-fit: cover;   /* Ajustar la imagen al contenedor sin distorsión */
+}

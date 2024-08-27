@@ -1,0 +1,19 @@
+.backg-img{
+    background-size: cover; /* Esto hará que la imagen cubra todo el elemento */
+    background-position: center; /* Esto centrará la imagen en el elemento */
+    background-repeat: no-repeat; /* Esto evitará que la imagen se repita */
+    
+    width: 80vw;   /* 100% del ancho de la ventana gráfica */
+    height: 100vh;  /* 100% del alto de la ventana gráfica */
+    position: fixed; /* O absolute, dependiendo de cómo quieras posicionar el div */
+    top: 0;
+    left: 10vw;
+
+    filter: blur(5px);
+}
+
+.element{
+    margin-top: 50px;
+}
+
+
