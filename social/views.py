@@ -125,65 +125,7 @@ def create_post(request):
 
     return JsonResponse({'error': 'Invalid request method'}, status=400)
 
-
-
 #editar post
-'''@login_required
-def edit_post(req, username, post_id):
-    if req.method == 'GET':
-        user = user = get_object_or_404(User, username=username)
-        post = get_object_or_404(Post, pk=post_id, user=req.user)
-        form = PostForm(instance=post)
-        return render(req, 'edit_post.html', {'user': user, 'post': post, 'editingForm': form})
-    else:
-        try:
-            post = get_object_or_404(Post, pk=post_id)
-            form = PostForm(req.POST, instance=post)
-            form.save()
-            return redirect('home')
-        except ValueError:
-            return render(req, 'edit_post.html', { 'Post': post, 'editingForm': form, 'error': 'Error updating post'})'''
-
-
-'''@login_required
-def edit_post(request, username, post_id):
-    user = get_object_or_404(User, username=username)
-    post = get_object_or_404(Post, pk=post_id, user=request.user)
-
-    if request.method == 'POST':
-        post_form = PostForm(request.POST, instance=post)
-        post_res_form = PostResForm(request.POST, request.FILES, instance=post.res if post.res else None)
-
-        if post_form.is_valid() and post_res_form.is_valid():
-            post_form.save()
-            
-            if post_res_form.cleaned_data.get('resource'):
-                # Si se proporciona una nueva imagen, guárdala y asóciala al post
-                post_res = post_res_form.save(commit=False)
-                post_res.post = post
-                post_res.save()
-                post.res = post_res
-                post.save()
-                
-            return redirect('home')
-        else:
-            return render(request, 'edit_post.html', {
-                'user': user,
-                'post': post,
-                'post_form': post_form,
-                'post_res_form': post_res_form,
-                'error': 'Error updating post'
-            })
-    else:
-        post_form = PostForm(instance=post)
-        post_res_form = PostResForm(instance=post.res)
-        return render(request, 'edit_post.html', {
-            'user': user,
-            'post': post,
-            'post_form': post_form,
-            'post_res_form': post_res_form
-        })'''
-
 @login_required
 def edit_post(request, username, post_id):
     user = get_object_or_404(User, username=username)
@@ -236,8 +178,6 @@ def delete_post_image(request, post_id):
             print(f"Error al eliminar la imagen: {e}")
             return redirect('edit_post', username=request.user.username, post_id=post_id)
     return redirect('edit_post', username=request.user.username, post_id=post_id)
-
-
 
 #eliminar post
 @login_required
