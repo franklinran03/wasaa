@@ -7,7 +7,7 @@ class PostForm(forms.ModelForm):
         fields = ['content', 'res'] 
         widgets = {
             'content': forms.Textarea(attrs={'class': 'form-control bg-dark', 'style': 'height: 100px; color: white;', 'placeholder': 'What is up?', 'required': False,}),
-            'res': forms.FileInput(attrs={'class': 'form-control mt-3','accept': 'image/png, image/jpeg, image/jpg',}),
+            'res': forms.FileInput(attrs={'class': 'form-control mt-3','accept': 'image/png, image/jpeg, video/mp4 video/mkv',}),
         }
 
 class PostResForm(forms.ModelForm):
