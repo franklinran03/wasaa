@@ -34,7 +34,7 @@ class PostRes(models.Model):
 #para los posts
 class Post(models.Model):
     pub_date = models.DateTimeField(auto_now=True)
-    content = models.TextField(blank=True)
+    content = models.TextField(blank=False)
     res = models.OneToOneField(PostRes, related_name='post_res', blank=True, null=True, on_delete=models.SET_NULL)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     likers = models.ManyToManyField(User, related_name='liked_posts')

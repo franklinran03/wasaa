@@ -108,7 +108,7 @@
                     success: function(response) {
                         showAlert('Post created successfully!', 'success');
                         $('#formModal').modal('hide');
-                        location.reload();
+                        //location.reload();
                     },
                     error: function(response) {
                         showAlert('Error: ' + response.responseJSON.error, 'danger');
