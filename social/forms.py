@@ -6,8 +6,8 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ['content', 'res'] 
         widgets = {
-            'content': forms.Textarea(attrs={'class': 'form-control bg-dark', 'style': 'height: 100px; color: white;', 'placeholder': 'What is up?',}),
-            'res': forms.FileInput(attrs={'class': 'form-control mt-3',}),
+            'content': forms.Textarea(attrs={'class': 'form-control bg-dark', 'style': 'height: 100px; color: white;', 'placeholder': 'What is up?', 'required': False,}),
+            'res': forms.FileInput(attrs={'class': 'form-control mt-3','accept': 'image/png, image/jpeg, image/jpg',}),
         }
 
 class PostResForm(forms.ModelForm):
@@ -15,7 +15,7 @@ class PostResForm(forms.ModelForm):
         model = PostRes
         fields = ['resource']
         widgets = {
-            'resource': forms.FileInput(attrs={'class': 'form-control mt-3',}),
+            'resource': forms.FileInput(attrs={'class': 'form-control mt-3', 'accept': 'image/png, image/jpeg, image/jpg',}),
         }
 
 class UserProfileForm(forms.ModelForm):
@@ -32,8 +32,8 @@ class EditProfileForm(forms.ModelForm):
         fields = ['name', 'photo', 'banner'] 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'What is your name',}),
-            'photo': forms.FileInput(attrs={'class': 'form-control', 'type': 'file', 'id': 'formFilePhoto',}),
-            'banner': forms.FileInput(attrs={'class': 'form-control', 'type': 'file', 'id': 'formFileBanner',}),
+            'photo': forms.FileInput(attrs={'class': 'form-control', 'type': 'file', 'id': 'formFilePhoto', 'accept': 'image/png, image/jpeg, image/jpg',}),
+            'banner': forms.FileInput(attrs={'class': 'form-control', 'type': 'file', 'id': 'formFileBanner', 'accept': 'image/png, image/jpeg, image/jpg',}),
         }
 
 class CommentForm(forms.ModelForm):

@@ -7,11 +7,24 @@
     <div class="col-md-6 offset-md-3">
         <h1 class="text-center display-3 py-5">What's up in the world</h1>
 
+        <!-- formulario crear post -->
+        <div class="comment-form">
+            <form id="postForm" method="POST" enctype="multipart/form-data" action="{% url 'create_post' %}">
+                {% csrf_token %}
+                {{ Post_form.content }}
+                {{ Res_form.resource }}
+                <div class="text-center mt-3">
+                    <button type="submit" class="btn btn-primary">Post</button>
+                </div>
+            </form>
+            <hr>
+        </div>
+
         <ul class="list-group">
             {% for post in posts %}
-            <li class="list-group-item bg-dark border-white border-opacity-10">
+            <li class="list-group-item bg-dark border-white border-opacity-10 box-post">
                 
-                 <a class="list-group-item bg-dark text-white" href="{% url 'profile' post.user.username %}">
+                 <a class="list-group-item bg-dark text-white profile-link-box" href="{% url 'profile' post.user.username %}">
                     <header class="d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center">
                             <p class="fw-bold mb-0">{{ post.user.username }}</p>
@@ -19,7 +32,7 @@
                         <span class="text-secondary">{{ post.pub_date }}</span>
                     </header>
                  </a>    
-                <a class="list-group-item bg-dark text-white" href="{% url 'post_detail' post.user.username post.id %}">
+                <a class="list-group-item bg-dark text-white link-post" href="{% url 'post_detail' post.user.username post.id %}">
                     <div class="post_content">
                         <p>{{post.content}}</p>
                         {% if post.res and post.res.resource %}
@@ -31,7 +44,7 @@
                 </a>
                 <hr class="text-white">
                 <div class="text-center">                  
-                    <a href="javascript:likePost('{{post.id}}')" class="btn btn-dark" style="height: 25px; padding: 0;">
+                    <a href="javascript:likePost('{{post.id}}')" class="btn btn-dark like-btn" style="height: 25px; padding: 0;">
                         <div class="d-flex justify-content-between">
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16" style="margin: 5px 5px 0;">
                                 <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
@@ -41,7 +54,7 @@
                             </p>
                         </div>
                     </a>
-                    <a href="{% url 'post_detail' post.user.username post.id %}" class="btn btn-dark" style="height: 25px; padding: 0; margin: 0 20px;">
+                    <a href="{% url 'post_detail' post.user.username post.id %}" class="btn btn-dark comm-btn" style="height: 25px; padding: 0; margin: 0 20px;">
                         <div class="d-flex justify-content-between" style="height: 25px; padding: 0; margin: 0 20px;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-chat-left" viewBox="0 0 16 16" style="margin: 5px 5px 0;">
                                 <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>

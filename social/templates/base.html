@@ -33,11 +33,11 @@
                         <a class="nav-link" href="/home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <!-- Enlace modificado para abrir el modal -->
+                        <!-- modal -->
                         <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#formModal">Create Post</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'my_profile' user.username %}">{{ user.username }}</a>
+                        <a class="nav-link profile-link" href="{% url 'my_profile' user.username %}">{{ user.username }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
@@ -62,7 +62,7 @@
     {% endblock %}
 
     <!-- Modal para crear post desde cualquier pagina-->
-    <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+    <div class="modal fade create-post-create" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content bg-dark text-white">
                 <div class="modal-header">
