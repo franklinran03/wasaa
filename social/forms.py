@@ -15,7 +15,7 @@ class PostResForm(forms.ModelForm):
         model = PostRes
         fields = ['resource']
         widgets = {
-            'resource': forms.FileInput(attrs={'class': 'form-control mt-3', 'accept': 'image/png, image/jpeg, image/jpg',}),
+            'resource': forms.FileInput(attrs={'class': 'form-control mt-3', 'accept': 'image/png, image/jpeg, video/mp4, video/mkv',}),
         }
 
 class UserProfileForm(forms.ModelForm):
