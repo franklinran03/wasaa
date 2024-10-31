@@ -1,31 +1,24 @@
 from django import forms
-from.models import Post, UserProfile, Comment, PostRes, PostResVideo
+from.models import Post, UserProfile, Comment, PostRes
 
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['content', 'res', 'res_video'] 
+        fields = ['content', 'res'] 
         widgets = {
             'content': forms.Textarea(attrs={'class': 'form-control bg-dark', 'style': 'height: 100px; color: white;', 'placeholder': 'What is up?',}),
             'res': forms.FileInput(attrs={'class': 'form-control mt-3','accept': 'image/png, image/jpeg,',}),
-            'res_video': forms.FileInput(attrs={'class': 'form-control mt-3','accept': 'video,',}),
         }
 
 class PostResForm(forms.ModelForm):
     class Meta:
-        model = PostRes, PostResVideo
+        model = PostRes
         fields = ['resource']
         widgets = {
             'resource': forms.FileInput(attrs={'class': 'form-control mt-3 img-form', 'accept': 'image/png, image/jpeg,',}),
         }
 
-class PostVidForm(forms.ModelForm):
-    class Meta:
-        model = PostResVideo
-        fields = ['resource']
-        widgets = {
-            'resource': forms.FileInput(attrs={'class': 'form-control mt-3 vid-form', 'accept': 'video/mp4 ,',}),
-        }
+
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
