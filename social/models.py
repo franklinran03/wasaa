@@ -31,11 +31,20 @@ class PostRes(models.Model):
     def __str__(self):
         return self.resource.name if self.resource else 'No resource'
 
+# para videos en un post
+class PostResVideo(models.Model):
+    resource = models.FileField(upload_to='post_resources/', blank=True, null=True)
+
+    def __str__(self):
+        return self.resource.name if self.resource else 'No resource'
+
+
 #para los posts
 class Post(models.Model):
     pub_date = models.DateTimeField(auto_now=True)
     content = models.TextField(blank=False)
     res = models.OneToOneField(PostRes, related_name='post_res', blank=True, null=True, on_delete=models.SET_NULL)
+    res_video = models.OneToOneField(PostResVideo, related_name='post_res_video', blank=True, null=True, on_delete=models.SET_NULL)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     likers = models.ManyToManyField(User, related_name='liked_posts')
 
