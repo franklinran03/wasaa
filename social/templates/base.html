@@ -92,6 +92,7 @@
     <script src="{% static 'js/likePost.js' %}"></script>
     <script src="{% static 'js/follow.js' %}"></script>
 
+    
     <script>
         $(document).ready(function() {
             $('#postForm').submit(function(e) {
@@ -106,16 +107,24 @@
                     processData: false,
                     contentType: false,
                     success: function(response) {
-                        showAlert('Post created successfully!', 'success');
+                        // Guarda el mensaje en localStorage
+                        localStorage.setItem('postAlert', 'Post created successfully!');
+                        localStorage.setItem('postAlertType', 'success');
+                        
                         $('#formModal').modal('hide');
                         location.reload();
                     },
                     error: function(response) {
-                        showAlert('Error: ' + response.responseJSON.error, 'danger');
+                        // Guarda el mensaje de error en localStorage
+                        localStorage.setItem('postAlert', 'Error: ' + response.responseJSON.error);
+                        localStorage.setItem('postAlertType', 'danger');
+                        
+                        location.reload();
                     }
                 });
             });
     
+            // Función para mostrar alertas desde localStorage
             function showAlert(message, type) {
                 var alertHtml = '<div class="alert alert-' + type + ' alert-dismissible fade show" role="alert">' +
                                 message +
@@ -123,8 +132,20 @@
                                 '</div>';
                 $('#alert-container').html(alertHtml);
             }
+    
+            // Verifica si hay alguna alerta en localStorage y la muestra
+            var postAlert = localStorage.getItem('postAlert');
+            var postAlertType = localStorage.getItem('postAlertType');
+    
+            if (postAlert) {
+                showAlert(postAlert, postAlertType);
+                // Elimina la alerta de localStorage después de mostrarla
+                localStorage.removeItem('postAlert');
+                localStorage.removeItem('postAlertType');
+            }
         });
     </script>
+    
 
 </body>
 </html>
