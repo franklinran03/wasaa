@@ -4,7 +4,7 @@
 <main class="container">
     <div class="row">
         <div class="col-md-4 offset-md-4 mt-5 py-5">
-            <form method="POST" enctype="multipart/form-data" class="card card-body bg-dark">
+            <form method="POST" enctype="multipart/form-data" class="card card-body bg-dark" id="edt-post">
                 <h1 class="text-center">Edit Post</h1>
                 {% if error %}
                     <div class="alert alert-danger">{{ error }}</div>
@@ -29,4 +29,54 @@
         </div>
     </div>
 </main>
+<script>
+    $(document).ready(function() {
+            $('#edt-post').submit(function(e) {
+                e.preventDefault();
+    
+                var formData = new FormData(this);
+    
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        // Guarda el mensaje en localStorage
+                        localStorage.setItem('postAlert', 'Post edited successfully!');
+                        localStorage.setItem('postAlertType', 'success');
+                        
+                    },
+                    error: function(response) {
+                        // Guarda el mensaje de error en localStorage
+                        localStorage.setItem('postAlert', 'Error: ' + response.responseJSON.error);
+                        localStorage.setItem('postAlertType', 'danger');
+                        
+                        location.reload();
+                    }
+                });
+            });
+    
+            // Función para mostrar alertas desde localStorage
+            function showAlert(message, type) {
+                var alertHtml = '<div class="alert alert-' + type + ' alert-dismissible fade show" role="alert">' +
+                                message +
+                                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
+                                '</div>';
+                $('#alert-container').html(alertHtml);
+            }
+    
+            // Verifica si hay alguna alerta en localStorage y la muestra
+            var postAlert = localStorage.getItem('postAlert');
+            var postAlertType = localStorage.getItem('postAlertType');
+    
+            if (postAlert) {
+                showAlert(postAlert, postAlertType);
+                // Elimina la alerta de localStorage después de mostrarla
+                localStorage.removeItem('postAlert');
+                localStorage.removeItem('postAlertType');
+            }
+        });
+</script>
 {% endblock %}
