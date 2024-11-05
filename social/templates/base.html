@@ -199,7 +199,7 @@
             e.preventDefault(); 
 
             $.ajax({
-                type: 'DELETE', 
+                type: 'POST', 
                 url: $(this).attr('href'), 
                 success: function(response) {
                     localStorage.setItem('postAlert', 'Post deleted successfully!'); 
