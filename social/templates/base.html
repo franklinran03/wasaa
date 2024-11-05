@@ -147,7 +147,57 @@
             }
         });
     </script>
+    <script>
+        $(document).ready(function() {
+            $('#edt-post').submit(function(e) {
+                e.preventDefault();
     
+                var formData = new FormData(this);
+    
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        localStorage.setItem('postAlert', 'Post updated successfully!');
+                        localStorage.setItem('postAlertType', 'success');
+                        window.location.href = '{% url "home" %}'; 
+                    },
+                    error: function(response) {
+                        localStorage.setItem('postAlert', 'Error updating post.');
+                        localStorage.setItem('postAlertType', 'danger');
+                        window.location.href = '{% url "home" %}'; 
+                    }
+                });
+            });
+    
+            
+    
+                
+        
+            // Función para mostrar alertas desde localStorage
+            function showAlert(message, type) {
+                var alertHtml = '<div class="alert alert-' + type + ' alert-dismissible fade show" role="alert">' +
+                                    message +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
+                                    '</div>';
+                $('#alert-container').html(alertHtml);
+            }
+        
+            // Verifica si hay alguna alerta en localStorage y la muestra
+            var postAlert = localStorage.getItem('postAlert');
+            var postAlertType = localStorage.getItem('postAlertType');
+        
+            if (postAlert) {
+                showAlert(postAlert, postAlertType);
+                // Elimina la alerta de localStorage después de mostrarla
+                localStorage.removeItem('postAlert');
+                localStorage.removeItem('postAlertType');
+            }
+        });
+    </script>
 
 </body>
 </html>
