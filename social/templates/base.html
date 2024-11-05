@@ -83,16 +83,12 @@
         </div>
     </div>
 
-
-    
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{% static 'js/likePost.js' %}"></script>
     <script src="{% static 'js/follow.js' %}"></script>
 
-    
+    <!-- cuando se crea un post-->
     <script>
         $(document).ready(function() {
             $('#postForm').submit(function(e) {
@@ -147,6 +143,8 @@
             }
         });
     </script>
+
+    <!-- para cuando se edita un post -->
     <script>
         $(document).ready(function() {
             $('#edt-post').submit(function(e) {
@@ -172,11 +170,7 @@
                     }
                 });
             });
-    
-            
-    
-                
-        
+
             // Función para mostrar alertas desde localStorage
             function showAlert(message, type) {
                 var alertHtml = '<div class="alert alert-' + type + ' alert-dismissible fade show" role="alert">' +
@@ -197,6 +191,50 @@
                 localStorage.removeItem('postAlertType');
             }
         });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+        $('#del-post').click(function(e) {
+            e.preventDefault(); 
+
+            $.ajax({
+                type: 'DELETE', 
+                url: $(this).attr('href'), 
+                success: function(response) {
+                    localStorage.setItem('postAlert', 'Post deleted successfully!'); 
+                    localStorage.setItem('postAlertType', 'success');
+                    window.location.href = '{% url "home" %}'; 
+                },
+                error: function(response) {
+                    localStorage.setItem('postAlert', 'Error deleting post.'); 
+                    localStorage.setItem('postAlertType', 'danger');
+                    window.location.href = '{% url "home" %}'; 
+                }
+            });
+        });
+
+        // Función para mostrar alertas desde localStorage
+        function showAlert(message, type) {
+            var alertHtml = '<div class="alert alert-' + type + ' alert-dismissible fade show" role="alert">' +
+                                message +
+                                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
+                                '</div>';
+            $('#alert-container').html(alertHtml);
+        }
+
+        // Verifica si hay alguna alerta en localStorage y la muestra
+        var postAlert = localStorage.getItem('postAlert');
+        var postAlertType = localStorage.getItem('postAlertType');
+
+        if (postAlert) {
+            showAlert(postAlert, postAlertType);
+            // Elimina la alerta de localStorage después de mostrarla
+            localStorage.removeItem('postAlert');
+            localStorage.removeItem('postAlertType');
+        }
+    });
+
     </script>
 
 </body>
