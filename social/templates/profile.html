@@ -93,7 +93,7 @@
                                <div class="post_content">
                                    <p>{{post.content}}</p>
                                    {% if post.res and post.res.resource %}
-                                       <div class="post_res">
+                                       <div class="post_res text-center">
                                            {% if post.res.resource.url %}
                                                {% if post.res.resource.url|lower|slice:"-3:" == "mp4" %}
                                                    <video  class="img-fluid" controls style="border-radius: 25px;">
